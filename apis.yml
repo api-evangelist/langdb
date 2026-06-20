@@ -1,0 +1,175 @@
+aid: langdb
+url: https://raw.githubusercontent.com/api-evangelist/langdb/refs/heads/main/apis.yml
+name: LangDB
+kind: company
+description: LangDB is an AI gateway and governance platform that routes requests
+  across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral,
+  and DeepSeek through a single project-scoped, OpenAI-compatible REST API. It layers
+  routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol)
+  gateway on top of that unified interface.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- LLM
+- AI Gateway
+- Routing
+- Governance
+- MCP
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: langdb:langdb-chat-completions-api
+  name: LangDB Chat Completions / Routing API
+  tags:
+  - Chat
+  - Completions
+  - Routing
+  - LLM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  properties:
+  - url: https://docs.langdb.ai/getting-started/working-with-api/
+    type: Documentation
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  - url: asyncapi/langdb-asyncapi.yml
+    type: AsyncAPI
+  description: OpenAI-compatible chat completions routed across 250+ models from OpenAI,
+    Anthropic, Google, Meta, Mistral, and DeepSeek, with SSE streaming, tool calling,
+    structured outputs, fallback/load-balancing routing, and attachable MCP servers.
+- aid: langdb:langdb-embeddings-api
+  name: LangDB Embeddings API
+  tags:
+  - Embeddings
+  - Vectors
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  properties:
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  description: OpenAI-compatible embeddings endpoint that creates vector representations
+    of input text or token arrays via any embedding model routed through the gateway.
+- aid: langdb:langdb-images-api
+  name: LangDB Images API
+  tags:
+  - Images
+  - Generation
+  - Multimodal
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  properties:
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  description: OpenAI-compatible image generation endpoint producing images from text
+    prompts using image-capable models routed through the gateway.
+- aid: langdb:langdb-models-api
+  name: LangDB Models API
+  tags:
+  - Models
+  - Catalog
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  properties:
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  description: Lists the models available to a project through the gateway in an OpenAI-compatible
+    shape, spanning 250+ models across the supported providers.
+- aid: langdb:langdb-threads-messages-api
+  name: LangDB Threads / Messages API
+  tags:
+  - Threads
+  - Messages
+  - Observability
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/concepts/thread
+  baseURL: https://api.us-east-1.langdb.ai
+  properties:
+  - url: https://docs.langdb.ai/concepts/thread
+    type: Documentation
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  description: Retrieves the ordered messages and aggregated per-thread cost for a
+    conversation thread, grouped by the X-Thread-Id supplied on chat requests.
+- aid: langdb:langdb-analytics-api
+  name: LangDB Analytics / Usage API
+  tags:
+  - Analytics
+  - Usage
+  - Cost
+  - FinOps
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/features/usage
+  baseURL: https://api.us-east-1.langdb.ai
+  properties:
+  - url: https://docs.langdb.ai/features/usage
+    type: Documentation
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  - url: collections/langdb.postman_collection.json
+    type: Postman
+  description: Returns time-series analytics, aggregated summaries, total usage, and
+    per-model usage (cost and token counts) for a project over preset reporting windows.
+- aid: langdb:langdb-mcp-gateway-api
+  name: LangDB MCP Gateway API
+  tags:
+  - MCP
+  - Tools
+  - Gateway
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langdb.ai/features/mcp-support
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  properties:
+  - url: https://docs.langdb.ai/features/mcp-support
+    type: Documentation
+  - url: https://docs.langdb.ai/concepts/virtual-mcp-servers/
+    type: Documentation
+  - url: openapi/langdb-openapi.yml
+    type: OpenAPI
+  description: Attaches virtual and custom MCP servers (over SSE or WebSocket transport)
+    to chat requests via the mcp_servers array, exposing their tools to the routed
+    model and bundling multiple tools behind a single MCP URL.
+common:
+- type: GitHubOrganization
+  url: https://github.com/langdb
+- type: LinkedIn
+  url: https://www.linkedin.com/company/langdb
+- type: Website
+  url: https://langdb.ai
+- type: Documentation
+  url: https://docs.langdb.ai
+- type: Plans
+  url: plans/langdb-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/langdb-rate-limits.yml
+- type: FinOps
+  url: finops/langdb-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

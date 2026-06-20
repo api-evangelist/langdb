@@ -1,0 +1,76 @@
+aid: langdb
+name: LangDB
+review:
+  question: Does LangDB expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: true
+  asyncapiScopeNote: |
+    Per API Evangelist scope, HTTP Server-Sent Events (SSE) is in-scope for
+    AsyncAPI modeling. An AsyncAPI 2.6 document was created at
+    asyncapi/langdb-asyncapi.yml describing the chat completion SSE stream
+    (POST /chat/completions with stream=true). No client-facing WebSocket
+    surface was modeled because none is documented; LangDB's WebSocket usage
+    is an outbound gateway-to-MCP-server transport, not a public streaming API.
+findings:
+  summary: |
+    LangDB does not publish a documented public WebSocket API for its gateway.
+    The LangDB AI Gateway is OpenAI-compatible and exposes REST (HTTPS)
+    endpoints under https://api.us-east-1.langdb.ai (project-scoped at
+    /{project_id}/v1). Streaming for chat completions is delivered as HTTP
+    Server-Sent Events (SSE) via the `stream: true` parameter on the REST
+    endpoint; SSE is a one-way HTTP streaming transport and is not WebSocket.
+    LangDB does connect to virtual/custom MCP servers using SSE or WebSocket
+    (ws) transports, but that is an outbound gateway-to-tool connection
+    configured in the `mcp_servers` array of a REST request, not a public
+    client-facing WebSocket API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+      documented: true
+    - protocol: SSE
+      scheme: https
+      note: Server-Sent Events delivered over the same REST chat completions endpoint when stream=true. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No public client-facing WebSocket endpoint is documented. WebSocket appears only as an outbound transport option for connecting the gateway to MCP servers.
+  endpointsConfirmedRest:
+    - POST https://api.us-east-1.langdb.ai/{project_id}/v1/chat/completions
+    - POST https://api.us-east-1.langdb.ai/{project_id}/v1/embeddings
+    - POST https://api.us-east-1.langdb.ai/{project_id}/v1/images/generations
+    - GET  https://api.us-east-1.langdb.ai/{project_id}/v1/models
+    - GET  https://api.us-east-1.langdb.ai/threads/{thread_id}/messages
+    - GET  https://api.us-east-1.langdb.ai/threads/{thread_id}/cost
+    - POST https://api.us-east-1.langdb.ai/analytics
+    - POST https://api.us-east-1.langdb.ai/analytics/summary
+    - POST https://api.us-east-1.langdb.ai/usage/total
+    - POST https://api.us-east-1.langdb.ai/usage/models
+sources:
+  - url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+    type: APIReference
+    note: Lists REST base URL https://api.us-east-1.langdb.ai and OpenAI-compatible endpoints; no public WebSocket.
+  - url: https://docs.langdb.ai/getting-started/working-with-api/
+    type: Documentation
+    note: Shows project-scoped base URL /{project_id}/v1 and Bearer + X-Project-Id auth.
+  - url: https://docs.langdb.ai/getting-started/working-with-headers
+    type: Documentation
+    note: Documents X-Project-Id, X-Thread-Id, X-Run-Id, X-Label tracing headers.
+  - url: https://docs.langdb.ai/features/mcp-support
+    type: Documentation
+    note: MCP servers connect via SSE or WebSocket as outbound gateway transports, configured in the mcp_servers array of REST requests.
+actions:
+  asyncapiPath: asyncapi/langdb-asyncapi.yml
+  apisYmlUpdated: true
+  reason: |
+    No public WebSocket protocol surface exists. Under the API Evangelist
+    scope that allows SSE in AsyncAPI, an AsyncAPI 2.6 document was authored
+    for the chat completion SSE stream, with HTTP+SSE transport documented
+    explicitly throughout the spec (server protocol, channel bindings,
+    info.x-transport-notes) so SSE is never misrepresented as WebSocket.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

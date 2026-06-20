@@ -1,0 +1,246 @@
+{
+  "info": {
+    "name": "LangDB AI Gateway API",
+    "description": "OpenAI-compatible AI gateway: chat completions/routing, embeddings, images, models, threads/messages, analytics/usage, and MCP gateway. Project-scoped base URL https://api.us-east-1.langdb.ai/{{projectId}}/v1 with Bearer auth and optional X-Project-Id / X-Thread-Id / X-Run-Id / X-Label headers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us-east-1.langdb.ai"
+    },
+    {
+      "key": "projectId",
+      "value": "your-langdb-project-id"
+    },
+    {
+      "key": "threadId",
+      "value": "your-thread-id"
+    },
+    {
+      "key": "bearerToken",
+      "value": "your-langdb-api-key"
+    }
+  ],
+  "item": [
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "Create a chat completion",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{projectId}}/v1/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["{{projectId}}", "v1", "chat", "completions"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"openai/gpt-4o-mini\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Hello\" }\n  ],\n  \"stream\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "OpenAI-compatible chat completion routed across 250+ models. Set stream=true for SSE streaming."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Embeddings",
+      "item": [
+        {
+          "name": "Create embeddings",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{projectId}}/v1/embeddings",
+              "host": ["{{baseUrl}}"],
+              "path": ["{{projectId}}", "v1", "embeddings"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"openai/text-embedding-3-small\",\n  \"input\": \"The quick brown fox\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Creates an embedding vector representing the input text or token array."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "Create an image",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{projectId}}/v1/images/generations",
+              "host": ["{{baseUrl}}"],
+              "path": ["{{projectId}}", "v1", "images", "generations"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"openai/gpt-image-1\",\n  \"prompt\": \"a red butterfly on warm paper\",\n  \"n\": 1,\n  \"size\": \"1024x1024\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Generates one or more images from a text prompt."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Models",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/{{projectId}}/v1/models",
+              "host": ["{{baseUrl}}"],
+              "path": ["{{projectId}}", "v1", "models"]
+            },
+            "description": "Lists the models available to the project through the gateway."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Threads",
+      "item": [
+        {
+          "name": "Get messages for a thread",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/threads/{{threadId}}/messages",
+              "host": ["{{baseUrl}}"],
+              "path": ["threads", "{{threadId}}", "messages"]
+            },
+            "description": "Retrieves the ordered messages belonging to a conversation thread."
+          }
+        },
+        {
+          "name": "Get the cost of a thread",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/threads/{{threadId}}/cost",
+              "host": ["{{baseUrl}}"],
+              "path": ["threads", "{{threadId}}", "cost"]
+            },
+            "description": "Returns the aggregated cost and token usage for a conversation thread."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Fetch analytics data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"last_month\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Returns time-series analytics for the project over a preset interval."
+          }
+        },
+        {
+          "name": "Fetch analytics summary",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/analytics/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "summary"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"last_month\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Returns an aggregated analytics summary for the requested window."
+          }
+        },
+        {
+          "name": "Get total usage",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usage/total",
+              "host": ["{{baseUrl}}"],
+              "path": ["usage", "total"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"last_month\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Returns total usage (cost, input tokens, output tokens) for the project."
+          }
+        },
+        {
+          "name": "Get usage by model",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usage/models",
+              "host": ["{{baseUrl}}"],
+              "path": ["usage", "models"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"last_month\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Returns usage broken down per model for the project."
+          }
+        }
+      ]
+    }
+  ]
+}

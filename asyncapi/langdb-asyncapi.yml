@@ -1,0 +1,182 @@
+asyncapi: '2.6.0'
+id: 'urn:ai:langdb:gateway:v1:chat-completions:sse'
+info:
+  title: LangDB Chat Completions Streaming (HTTP + SSE)
+  version: '1.0.0'
+  description: |
+    AsyncAPI 2.6 description of LangDB's **chat completion streaming** surface.
+
+    LangDB does not publish a WebSocket API for chat. The asynchronous /
+    event-style transport documented at
+    https://docs.langdb.ai/api-reference/ai-gateway-api/ is **HTTP
+    Server-Sent Events (SSE)** delivered over the same OpenAI-compatible REST
+    endpoint (`POST /chat/completions`) when the request body sets
+    `stream: true`. SSE is a one-way, server-to-client HTTP streaming channel;
+    it is **not** WebSocket. (LangDB does use WebSocket/SSE transports to
+    connect to virtual MCP servers, but that is an outbound gateway-to-tool
+    connection, not a public client-facing streaming API, and is not modeled
+    here.)
+
+    This document models only the streamed events emitted by LangDB's SSE
+    chat response. The request body itself (model, messages, tools,
+    mcp_servers, etc.) is modeled in the companion OpenAPI document at
+    `openapi/langdb-openapi.yml`.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+    url: https://apievangelist.com
+  license:
+    name: API documentation - LangDB Terms of Service
+    url: https://langdb.ai/terms
+  x-transport-notes:
+    transport: HTTP Server-Sent Events (SSE)
+    protocol: https
+    direction: server-to-client (one-way)
+    mediaType: text/event-stream
+    triggeredBy: 'POST https://api.us-east-1.langdb.ai/{project_id}/v1/chat/completions with request body { "stream": true }'
+    terminator: 'data: [DONE]'
+    notWebSocket: true
+    source: https://docs.langdb.ai/api-reference/ai-gateway-api/
+defaultContentType: text/event-stream
+servers:
+  langdb:
+    url: api.us-east-1.langdb.ai/{project_id}/v1
+    protocol: https
+    description: |
+      LangDB's OpenAI-compatible REST base (US East 1). Chat completion
+      streaming is delivered as HTTP Server-Sent Events over this base when
+      `stream: true` is set on the JSON request body. AsyncAPI 2.6 does not
+      define a dedicated SSE protocol identifier; `https` is used here and the
+      SSE transport is documented in `info.x-transport-notes` and on the
+      channel.
+    variables:
+      project_id:
+        default: your-langdb-project-id
+        description: LangDB project id embedded in the path (or sent via X-Project-Id header).
+    security:
+      - bearerAuth: []
+channels:
+  /chat/completions:
+    description: |
+      Chat completion SSE stream. The client opens this channel by issuing
+      `POST /chat/completions` with `Content-Type: application/json` and a JSON
+      body containing `stream: true`. The server responds with
+      `Content-Type: text/event-stream` and emits a sequence of `data:` lines,
+      each carrying one JSON-serialized `chat.completion.chunk` object,
+      followed by a final `data: [DONE]` line.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+      x-sse:
+        mediaType: text/event-stream
+        eventField: 'data'
+        terminator: '[DONE]'
+    subscribe:
+      operationId: streamChatCompletionChunks
+      summary: Subscribe to streamed chat completion chunks (SSE).
+      description: |
+        After `POST /chat/completions` is issued with `stream: true`, the
+        server emits an ordered sequence of SSE `data:` events. Each `data:`
+        line carries either a JSON-serialized `ChatCompletionChunk` or the
+        literal sentinel `[DONE]` marking end of stream.
+      bindings:
+        http:
+          type: response
+          bindingVersion: '0.3.0'
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ChatCompletionChunk'
+          - $ref: '#/components/messages/StreamDone'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: 'LangDB API key'
+      description: |
+        LangDB project access token. Set the
+        `Authorization: Bearer <LANGDB_API_KEY>` header on the
+        `POST /chat/completions` request that opens the SSE stream.
+  messages:
+    ChatCompletionChunk:
+      name: ChatCompletionChunk
+      title: Streamed chat completion chunk
+      summary: |
+        A single SSE `data:` event carrying one JSON `chat.completion.chunk`
+        object. Many of these are emitted per request, in order.
+      contentType: application/json
+      description: |
+        Sent as `data: {json}\n\n` on the SSE stream. The JSON object's
+        `object` field is the literal string `chat.completion.chunk`. LangDB
+        preserves the OpenAI-compatible chunk shape regardless of which
+        underlying provider served the request.
+      payload:
+        $ref: '#/components/schemas/ChatCompletionChunk'
+      examples:
+        - name: contentChunk
+          summary: Token delta
+          payload:
+            id: chatcmpl-langdb-abc123
+            object: chat.completion.chunk
+            created: 1781913600
+            model: openai/gpt-4o-mini
+            choices:
+              - index: 0
+                delta:
+                  content: 'Hello'
+                finish_reason: null
+        - name: finalChunk
+          summary: Final chunk - finish_reason set
+          payload:
+            id: chatcmpl-langdb-abc123
+            object: chat.completion.chunk
+            created: 1781913600
+            model: openai/gpt-4o-mini
+            choices:
+              - index: 0
+                delta: {}
+                finish_reason: stop
+    StreamDone:
+      name: StreamDone
+      title: Stream terminator
+      summary: |
+        The literal `data: [DONE]` line that marks the end of the SSE stream.
+      contentType: text/plain
+      description: |
+        After the last `chat.completion.chunk`, the server sends the sentinel
+        line `data: [DONE]` and closes the connection.
+      payload:
+        type: string
+        const: '[DONE]'
+  schemas:
+    ChatCompletionChunk:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          const: chat.completion.chunk
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              delta:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+              finish_reason:
+                type: string
+                nullable: true

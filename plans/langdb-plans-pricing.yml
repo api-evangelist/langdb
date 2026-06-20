@@ -1,0 +1,137 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: LangDB
+providerId: langdb
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- AI Gateway
+- Routing
+- Governance
+- MCP
+- Plans
+description: >-
+  LangDB offers a free, open-source AI gateway (langdb/ai-gateway) that can be
+  self-hosted at no license cost, plus a managed cloud service. The managed
+  service has a Free tier (no credit card required) and paid tiers (publicly
+  referenced as starting around $49/month) leading up to Business and
+  Enterprise plans that add multi-tenancy, advanced cost control, role-based
+  access, and SSO. Model usage routed through the gateway is billed at the
+  underlying provider rates. Specific per-tier seat counts, included usage,
+  and any gateway markup are not fully published and are not reconciled in
+  this artifact.
+notes: >-
+  The exact feature matrix, seat pricing, included message/usage allowances,
+  and any per-request gateway fee are not consistently published on
+  langdb.ai/pricing; confirm current tiers and amounts on the pricing page
+  during reconciliation.
+sources:
+- https://langdb.ai/pricing/
+- https://docs.langdb.ai/features/cost-control
+- https://github.com/langdb/ai-gateway
+plans:
+- id: langdb-open-source
+  name: Open Source (Self-Hosted)
+  type: free
+  description: >-
+    The LangDB AI gateway is open source and can be self-hosted with no
+    license fee; you pay only the underlying model provider costs.
+  entries:
+  - label: Self-Hosted Gateway
+    name: open_source
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (self-hosted, open source)
+    userMultiplied: false
+  elements:
+  - name: OpenAI-Compatible Gateway
+  - name: Routing
+  - name: MCP Support
+- id: langdb-free
+  name: Free
+  type: free
+  description: >-
+    Managed cloud Free tier with no credit card required, for evaluating the
+    hosted gateway, routing, tracing, and analytics.
+  entries:
+  - label: Free Tier
+    name: free
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: Hosted Gateway
+  - name: Tracing
+  - name: Analytics
+- id: langdb-paid
+  name: Paid (Pro / Business)
+  type: subscription
+  description: >-
+    Managed paid tier publicly referenced as starting around $49/month, adding
+    higher limits, cost control, and team/user management. Exact tier names,
+    seat counts, and included usage are not reconciled.
+  entries:
+  - label: Paid Subscription
+    name: paid
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from ~$49/month (verify on pricing page)
+    userMultiplied: false
+  - label: Model Usage Pass-Through
+    name: model_usage
+    type: usage
+    metric: tokens
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: billed at underlying provider model rates
+    userMultiplied: false
+  elements:
+  - name: Cost Control
+  - name: User Management
+  - name: Advanced Routing
+- id: langdb-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Enterprise plan with multi-tenancy, advanced cost and access control,
+    role-based access, SSO, on-prem / VPC deployment, and dedicated support.
+    Contact LangDB sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Multi-Tenancy
+  - name: Tenant & User Provisioning
+  - name: Group-Based Routing
+  - name: SSO
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

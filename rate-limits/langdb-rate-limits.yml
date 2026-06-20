@@ -1,0 +1,72 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: LangDB
+providerId: langdb
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- AI Gateway
+- Routing
+- Governance
+- MCP
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  LangDB enforces project- and user-scoped limits at the gateway. Beyond
+  request/token throughput, it offers cost-based controls: per-user and
+  per-group spend limits, project budgets, and cost groups (available in
+  Business and Enterprise tiers) that throttle or block requests once a
+  configured budget is exceeded. Underlying model providers also enforce
+  their own rate limits, which the gateway surfaces. Specific numeric
+  per-tier limits are not published and are not reconciled in this artifact.
+notes: >-
+  Confirm per-tier RPM/TPM throughput and the configuration of cost limits,
+  project budgets, and cost groups in the LangDB console and cost-control
+  docs during reconciliation.
+sources:
+- https://docs.langdb.ai/features/cost-control
+- https://docs.langdb.ai/features/usage
+- https://langdb.ai/cost-control/
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Minute (RPM)
+  scope: project
+  metric: requests
+  limit: see provider documentation
+  notes: Gateway throughput limit; varies by tier and routed provider.
+- name: Tokens Per Minute (TPM)
+  scope: project
+  metric: tokens
+  limit: see provider documentation
+  notes: Aggregate token throughput; also bounded by the underlying provider's limits.
+- name: Per-User Spend Limit
+  scope: user
+  metric: cost
+  limit: configurable
+  notes: User-level budget cap (Business / Enterprise); requests blocked when exceeded.
+- name: Per-Group Spend Limit
+  scope: group
+  metric: cost
+  limit: configurable
+  notes: Group/team budget cap via cost groups (Business / Enterprise).
+- name: Project Budget
+  scope: project
+  metric: cost
+  limit: configurable
+  notes: Project-level spend cap; throttles or blocks once the budget is reached.
+policies:
+- name: Cost-Based Throttling
+  description: Requests can be blocked or throttled when a user, group, or project budget is exceeded.
+- name: Provider Limit Pass-Through
+  description: Underlying model provider rate limits apply and are surfaced through the gateway.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

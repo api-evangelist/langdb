@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangDB AI Gateway API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a chat completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{{projectId}}/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model\": \"openai/gpt-4o-mini\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Hello\" }\n  ],\n  \"stream\": false\n}"
+            }
+          },
+          "docs": "OpenAI-compatible chat completion routed across 250+ models. Set stream=true for Server-Sent Events. Optional headers: X-Project-Id, X-Thread-Id, X-Run-Id, X-Label."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{{projectId}}/v1/embeddings",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model\": \"openai/text-embedding-3-small\",\n  \"input\": \"The quick brown fox\"\n}"
+            }
+          },
+          "docs": "Creates an embedding vector representing the input text or token array."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{{projectId}}/v1/images/generations",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model\": \"openai/gpt-image-1\",\n  \"prompt\": \"a red butterfly on warm paper\",\n  \"n\": 1,\n  \"size\": \"1024x1024\"\n}"
+            }
+          },
+          "docs": "Generates one or more images from a text prompt using an image-capable model."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/{{projectId}}/v1/models"
+          },
+          "docs": "Lists the models available to the project through the gateway."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Threads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get messages for a thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/threads/{{threadId}}/messages"
+          },
+          "docs": "Retrieves the ordered messages belonging to a conversation thread."
+        },
+        {
+          "info": {
+            "name": "Get the cost of a thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/threads/{{threadId}}/cost"
+          },
+          "docs": "Returns the aggregated cost and token usage for a conversation thread."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch analytics data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/analytics",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"interval\": \"last_month\"\n}"
+            }
+          },
+          "docs": "Returns time-series analytics for the project over a preset interval."
+        },
+        {
+          "info": {
+            "name": "Fetch analytics summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/analytics/summary",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"interval\": \"last_month\"\n}"
+            }
+          },
+          "docs": "Returns an aggregated analytics summary for the requested window."
+        },
+        {
+          "info": {
+            "name": "Get total usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/usage/total",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"interval\": \"last_month\"\n}"
+            }
+          },
+          "docs": "Returns total usage (cost, input tokens, output tokens) for the project."
+        },
+        {
+          "info": {
+            "name": "Get usage by model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/usage/models",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"interval\": \"last_month\"\n}"
+            }
+          },
+          "docs": "Returns usage broken down per model for the project."
+        }
+      ]
+    }
+  ]
+}
