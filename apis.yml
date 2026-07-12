@@ -156,6 +156,10 @@ apis:
     to chat requests via the mcp_servers array, exposing their tools to the routed
     model and bundling multiple tools behind a single MCP URL.
 common:
+- type: DomainSecurity
+  url: security/langdb-domain-security.yml
+- type: Authentication
+  url: authentication/langdb-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/langdb
 - type: LinkedIn

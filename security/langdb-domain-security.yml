@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: langdb.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 10:18:38 2026 GMT
+  hsts: false
+- host: docs.langdb.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 07:20:37 2026 GMT
+  hsts: false
+- host: api.us-east-1.langdb.ai
+  https: false
+domains:
+- domain: langdb.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
