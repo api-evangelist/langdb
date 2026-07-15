@@ -156,6 +156,8 @@ apis:
     to chat requests via the mcp_servers array, exposing their tools to the routed
     model and bundling multiple tools behind a single MCP URL.
 common:
+- type: AgenticAccess
+  url: agentic-access/langdb-agentic-access.yml
 - type: DomainSecurity
   url: security/langdb-domain-security.yml
 - type: Authentication
