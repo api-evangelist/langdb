@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: LangDB AI Gateway Analytics Images API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  termsOfService: https://langdb.ai/terms
+  contact:
+    name: LangDB Support
+    url: https://langdb.ai
+    email: support@langdb.ai
+  version: '1.0'
+servers:
+- url: https://api.us-east-1.langdb.ai/{project_id}/v1
+  description: Project-scoped OpenAI-compatible base (US East 1).
+  variables:
+    project_id:
+      default: your-langdb-project-id
+      description: LangDB project id. May instead be supplied via the X-Project-Id header.
+- url: https://api.us-east-1.langdb.ai
+  description: Root base URL for analytics, usage, and thread management endpoints (US East 1).
+security:
+- bearerAuth: []
+tags:
+- name: Images
+  description: Image generation.
+paths:
+  /images/generations:
+    post:
+      operationId: createImage
+      tags:
+      - Images
+      summary: Create an image
+      description: Generates one or more images from a text prompt using an image-capable model routed through the gateway.
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+      responses:
+        '200':
+          description: The generated image(s).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  schemas:
+    ImageGenerationResponse:
+      type: object
+      properties:
+        created:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+              b64_json:
+                type: string
+    ImageGenerationRequest:
+      type: object
+      required:
+      - model
+      - prompt
+      properties:
+        model:
+          type: string
+          example: openai/gpt-image-1
+        prompt:
+          type: string
+        n:
+          type: integer
+          default: 1
+        size:
+          type: string
+          example: 1024x1024
+        response_format:
+          type: string
+          enum:
+          - url
+          - b64_json
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or cost limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'LangDB API key (project access token) sent as `Authorization: Bearer <token>`.'

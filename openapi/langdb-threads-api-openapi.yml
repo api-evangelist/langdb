@@ -1,0 +1,151 @@
+openapi: 3.0.1
+info:
+  title: LangDB AI Gateway Analytics Threads API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  termsOfService: https://langdb.ai/terms
+  contact:
+    name: LangDB Support
+    url: https://langdb.ai
+    email: support@langdb.ai
+  version: '1.0'
+servers:
+- url: https://api.us-east-1.langdb.ai/{project_id}/v1
+  description: Project-scoped OpenAI-compatible base (US East 1).
+  variables:
+    project_id:
+      default: your-langdb-project-id
+      description: LangDB project id. May instead be supplied via the X-Project-Id header.
+- url: https://api.us-east-1.langdb.ai
+  description: Root base URL for analytics, usage, and thread management endpoints (US East 1).
+security:
+- bearerAuth: []
+tags:
+- name: Threads
+  description: Conversation threads, their messages, and per-thread cost.
+paths:
+  /threads/{thread_id}/messages:
+    get:
+      operationId: getThreadMessages
+      tags:
+      - Threads
+      summary: Get messages for a thread
+      description: Retrieves the ordered messages belonging to a conversation thread.
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdHeader'
+      - name: thread_id
+        in: path
+        required: true
+        description: The thread identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The thread's messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadMessageList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /threads/{thread_id}/cost:
+    get:
+      operationId: getThreadCost
+      tags:
+      - Threads
+      summary: Get the cost of a thread
+      description: Returns the aggregated cost and token usage for a conversation thread.
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdHeader'
+      - name: thread_id
+        in: path
+        required: true
+        description: The thread identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The thread's cost summary.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadCost'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ThreadMessageList:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+    ChatMessage:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          enum:
+          - system
+          - user
+          - assistant
+          - tool
+        content:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: object
+        name:
+          type: string
+        tool_call_id:
+          type: string
+    ThreadCost:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        total_cost:
+          type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: string
+  parameters:
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'LangDB API key (project access token) sent as `Authorization: Bearer <token>`.'
