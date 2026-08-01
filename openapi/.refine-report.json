@@ -1,0 +1,24 @@
+{
+  "provider": "langdb",
+  "sources": [
+    "langdb-analytics-api-openapi.yml",
+    "langdb-chat-api-openapi.yml",
+    "langdb-embeddings-api-openapi.yml",
+    "langdb-images-api-openapi.yml",
+    "langdb-models-api-openapi.yml",
+    "langdb-threads-api-openapi.yml"
+  ],
+  "outputs": [
+    "langdb-analytics-api-openapi.yml",
+    "langdb-chat-api-openapi.yml",
+    "langdb-embeddings-api-openapi.yml",
+    "langdb-images-api-openapi.yml",
+    "langdb-models-api-openapi.yml",
+    "langdb-threads-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
