@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangDB AI Gateway Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch analytics data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/analytics",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns time-series analytics for the project, filterable by a preset interval such as last_day, last_week, or last_month."
+        },
+        {
+          "info": {
+            "name": "Fetch analytics summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/analytics/summary",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an aggregated analytics summary (totals for requests, tokens, and cost) for the requested window."
+        },
+        {
+          "info": {
+            "name": "Get total usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/usage/total",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns total usage (cost, input tokens, output tokens) for the project over the requested window."
+        },
+        {
+          "info": {
+            "name": "Get usage by model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/usage/models",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns usage broken down per model for the project over the requested window."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

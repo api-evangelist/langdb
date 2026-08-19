@@ -1,0 +1,210 @@
+{
+  "item": [
+    {
+      "id": "e16d75ac-ff22-4dac-9478-31139f57a28f",
+      "name": "Models",
+      "description": {
+        "content": "Catalog of models available through the gateway.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ee81cfe-b454-4737-af9e-86ff6edfbe50",
+          "name": "List models",
+          "request": {
+            "name": "List models",
+            "description": {
+              "content": "Lists the models available to the project through the gateway, in an OpenAI-compatible shape.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                  "type": "any",
+                  "value": "{{project_id}}",
+                  "key": "project_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                "key": "X-Project-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cef777b-016e-4660-9bcf-4c9e171a68d5",
+              "name": "The list of available models.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"openai/gpt-4o\",\n      \"object\": \"model\",\n      \"owned_by\": \"string\",\n      \"provider\": \"string\"\n    },\n    {\n      \"id\": \"openai/gpt-4o\",\n      \"object\": \"model\",\n      \"owned_by\": \"string\",\n      \"provider\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb174fdd-cc0f-44c3-9271-a3c8469cb927",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-langdb-project-id",
+      "key": "project_id"
+    },
+    {
+      "type": "string",
+      "value": "https://api.us-east-1.langdb.ai/{{project_id}}/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a6613e02-496f-4ad0-90d9-bdf6961d2e99",
+    "name": "LangDB AI Gateway Analytics Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.\n\nContact Support:\n Name: LangDB Support\n Email: support@langdb.ai",
+      "type": "text/plain"
+    }
+  }
+}

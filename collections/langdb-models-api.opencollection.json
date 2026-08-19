@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangDB AI Gateway Analytics Models API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/models",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Lists the models available to the project through the gateway, in an OpenAI-compatible shape."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangDB AI Gateway Analytics Threads API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Threads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get messages for a thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/threads/:thread_id/messages",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "path",
+                "description": "The thread identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the ordered messages belonging to a conversation thread."
+        },
+        {
+          "info": {
+            "name": "Get the cost of a thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/threads/:thread_id/cost",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "path",
+                "description": "The thread identifier."
+              }
+            ]
+          },
+          "docs": "Returns the aggregated cost and token usage for a conversation thread."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

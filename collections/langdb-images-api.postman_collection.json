@@ -1,0 +1,307 @@
+{
+  "item": [
+    {
+      "id": "7ba8296f-bb8c-468e-b06f-204e7c323771",
+      "name": "Images",
+      "description": {
+        "content": "Image generation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bedff9c8-4d8a-4c08-8c28-db3740a938ac",
+          "name": "Create an image",
+          "request": {
+            "name": "Create an image",
+            "description": {
+              "content": "Generates one or more images from a text prompt using an image-capable model routed through the gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "images",
+                "generations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                  "type": "any",
+                  "value": "{{project_id}}",
+                  "key": "project_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                "key": "X-Project-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"<string>\",\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "98eab153-5d17-4d27-a741-febf4b8758ee",
+              "name": "The generated image(s).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"openai/gpt-image-1\",\n  \"prompt\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": 9620,\n  \"data\": [\n    {\n      \"url\": \"https://QLeLnrpWgIrnqmWkWKjoiubbgIBtY.uoL0aDDa4mb2uE0QzAszCdu3oHqY1v-KO7wrLha\",\n      \"b64_json\": \"string\"\n    },\n    {\n      \"url\": \"http://AUmuReaLuQiRMHXkAcJZxyebIuXa.vsuvuPEVcfDrWE2rbbgNd-a73UCsODhVQt4lKrFKfqvsuZz1wfFMiRcYQ-aYORrk,\",\n      \"b64_json\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5791738-fc5f-4c24-8430-f42462bb37fb",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"openai/gpt-image-1\",\n  \"prompt\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e9b8591-426a-49f2-bb25-fb366ddbe250",
+              "name": "Rate limit or cost limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"openai/gpt-image-1\",\n  \"prompt\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-langdb-project-id",
+      "key": "project_id"
+    },
+    {
+      "type": "string",
+      "value": "https://api.us-east-1.langdb.ai/{{project_id}}/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1647adee-9546-4302-9622-288fd1790f8a",
+    "name": "LangDB AI Gateway Analytics Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.\n\nContact Support:\n Name: LangDB Support\n Email: support@langdb.ai",
+      "type": "text/plain"
+    }
+  }
+}

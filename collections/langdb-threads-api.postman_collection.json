@@ -1,0 +1,424 @@
+{
+  "item": [
+    {
+      "id": "a48c8c25-5525-431f-b8dd-6e42a8df06f7",
+      "name": "Threads",
+      "description": {
+        "content": "Conversation threads, their messages, and per-thread cost.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b5d1f66-6c0a-477d-8ff5-f4fdcc851c1e",
+          "name": "Get messages for a thread",
+          "request": {
+            "name": "Get messages for a thread",
+            "description": {
+              "content": "Retrieves the ordered messages belonging to a conversation thread.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The thread identifier."
+                },
+                {
+                  "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                  "type": "any",
+                  "value": "{{project_id}}",
+                  "key": "project_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                "key": "X-Project-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04aac1d1-ff0a-4816-bc97-5c561adf89b2",
+              "name": "The thread's messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The thread identifier."
+                    },
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"thread_id\": \"string\",\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"string\",\n      \"name\": \"string\",\n      \"tool_call_id\": \"string\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"string\",\n      \"name\": \"string\",\n      \"tool_call_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c6e523e-81c9-43eb-a17d-a20c0baa0e6f",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The thread identifier."
+                    },
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea9e4086-2bd8-4563-80ec-a170a208dfab",
+          "name": "Get the cost of a thread",
+          "request": {
+            "name": "Get the cost of a thread",
+            "description": {
+              "content": "Returns the aggregated cost and token usage for a conversation thread.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "cost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The thread identifier."
+                },
+                {
+                  "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                  "type": "any",
+                  "value": "{{project_id}}",
+                  "key": "project_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                "key": "X-Project-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df953449-7ada-4323-b2d7-2990b3d230e1",
+              "name": "The thread's cost summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The thread identifier."
+                    },
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"thread_id\": \"string\",\n  \"total_cost\": 4803.03782584735,\n  \"input_tokens\": 3868,\n  \"output_tokens\": 6376\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "480630bc-674f-4a16-86d6-f0b20effef2a",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The thread identifier."
+                    },
+                    {
+                      "description": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+                      "type": "any",
+                      "value": "{{project_id}}",
+                      "key": "project_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "LangDB project id. Optional when the project id is embedded in the request path.",
+                    "key": "X-Project-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "LangDB project id. May instead be supplied via the X-Project-Id header.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-langdb-project-id",
+      "key": "project_id"
+    },
+    {
+      "type": "string",
+      "value": "https://api.us-east-1.langdb.ai/{{project_id}}/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "67c212b1-6834-4a6f-9dd4-257686dd254e",
+    "name": "LangDB AI Gateway Analytics Threads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.\n\nContact Support:\n Name: LangDB Support\n Email: support@langdb.ai",
+      "type": "text/plain"
+    }
+  }
+}

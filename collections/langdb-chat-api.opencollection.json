@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangDB AI Gateway Analytics Chat API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a chat completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us-east-1.langdb.ai/{project_id}/v1/chat/completions",
+            "headers": [
+              {
+                "name": "X-Project-Id",
+                "value": ""
+              },
+              {
+                "name": "X-Thread-Id",
+                "value": ""
+              },
+              {
+                "name": "X-Run-Id",
+                "value": ""
+              },
+              {
+                "name": "X-Label",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "OpenAI-compatible chat completion across any model routable by the gateway (e.g. `openai/gpt-4o`, `anthropic/claude-sonnet-4`, `gemini/gemini-2.5-pro`). Supports streaming via Server-Sent Events when `stream` is true, tool/function calling, structured outputs, and attaching MCP servers through the `mcp_servers` array. Tracing metadata can be attached via the X-Thread-Id, X-Run-Id, and X-Label headers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
