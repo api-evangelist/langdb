@@ -22,6 +22,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langdb.png
 tags:
+- Artificial Intelligence
+- LLM
+- AI Gateway
+- Routing
+- Governance
+- MCP
+tags_raw:
 - AI
 - LLM
 - AI Gateway
@@ -116,6 +123,8 @@ apis:
   humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
   baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
