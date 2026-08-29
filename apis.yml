@@ -7,6 +7,18 @@ description: LangDB is an AI gateway and governance platform that routes request
   and DeepSeek through a single project-scoped, OpenAI-compatible REST API. It layers
   routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol)
   gateway on top of that unified interface.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: open
