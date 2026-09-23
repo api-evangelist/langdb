@@ -1,12 +1,7 @@
 {
   "provider": "langdb",
   "sources": [
-    "langdb-analytics-api-openapi.yml",
-    "langdb-chat-api-openapi.yml",
-    "langdb-embeddings-api-openapi.yml",
-    "langdb-images-api-openapi.yml",
-    "langdb-models-api-openapi.yml",
-    "langdb-threads-api-openapi.yml"
+    "_original/langdb-openapi.yml"
   ],
   "outputs": [
     "langdb-analytics-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "langdb-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "langdb-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langdb-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langdb-embeddings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langdb-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langdb-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langdb-threads-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

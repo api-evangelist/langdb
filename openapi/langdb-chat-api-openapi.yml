@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LangDB AI Gateway Analytics Chat API
-  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  title: LangDB AI Gateway Chat API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway.
   termsOfService: https://langdb.ai/terms
   contact:
     name: LangDB Support
@@ -57,36 +57,7 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit or cost limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    McpServer:
-      type: object
-      properties:
-        slug:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - sse
-          - ws
-          description: Transport type for the MCP server.
-        server_url:
-          type: string
-          format: uri
     ChatCompletionResponse:
       type: object
       properties:
@@ -112,6 +83,18 @@ components:
                 type: string
         usage:
           $ref: '#/components/schemas/Usage'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: string
     ChatCompletionRequest:
       type: object
       required:
@@ -191,6 +174,22 @@ components:
           type: string
         tool_call_id:
           type: string
+    McpServer:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - sse
+          - ws
+          description: Transport type for the MCP server.
+        server_url:
+          type: string
+          format: uri
     Usage:
       type: object
       properties:
@@ -200,19 +199,21 @@ components:
           type: integer
         total_tokens:
           type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            type:
-              type: string
-            code:
-              type: string
   parameters:
+    RunIdHeader:
+      name: X-Run-Id
+      in: header
+      required: false
+      description: Tracks a single workflow execution (model call or tool invocation) for observability.
+      schema:
+        type: string
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
     ThreadIdHeader:
       name: X-Thread-Id
       in: header
@@ -227,20 +228,19 @@ components:
       description: Attaches a custom label/tag to the model call for categorization and tracing.
       schema:
         type: string
-    ProjectIdHeader:
-      name: X-Project-Id
-      in: header
-      required: false
-      description: LangDB project id. Optional when the project id is embedded in the request path.
-      schema:
-        type: string
-    RunIdHeader:
-      name: X-Run-Id
-      in: header
-      required: false
-      description: Tracks a single workflow execution (model call or tool invocation) for observability.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or cost limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

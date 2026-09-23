@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LangDB AI Gateway Analytics Threads API
-  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  title: LangDB AI Gateway Threads API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway.
   termsOfService: https://langdb.ai/terms
   contact:
     name: LangDB Support
@@ -72,14 +72,18 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    ThreadCost:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        total_cost:
+          type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
     ThreadMessageList:
       type: object
       properties:
@@ -89,6 +93,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatMessage'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: string
     ChatMessage:
       type: object
       required:
@@ -112,29 +128,13 @@ components:
           type: string
         tool_call_id:
           type: string
-    ThreadCost:
-      type: object
-      properties:
-        thread_id:
-          type: string
-        total_cost:
-          type: number
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            type:
-              type: string
-            code:
-              type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectIdHeader:
       name: X-Project-Id

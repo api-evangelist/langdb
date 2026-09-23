@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LangDB AI Gateway Analytics Models API
-  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  title: LangDB AI Gateway Models API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway.
   termsOfService: https://langdb.ai/terms
   contact:
     name: LangDB Support

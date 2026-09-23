@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: LangDB AI Gateway Analytics API
-  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  description: OpenAI-compatible REST API for the LangDB AI Gateway.
   termsOfService: https://langdb.ai/terms
   contact:
     name: LangDB Support
@@ -121,35 +121,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    AnalyticsRequest:
+    AnalyticsSummary:
       type: object
       properties:
-        interval:
-          type: string
-          description: Preset reporting window.
-          enum:
-          - last_day
-          - last_week
-          - last_month
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        group_by:
-          type: array
-          items:
-            type: string
-    UsageTotal:
-      type: object
-      properties:
+        total_requests:
+          type: integer
+        total_tokens:
+          type: integer
         total_cost:
           type: number
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
     UsageByModel:
       type: object
       properties:
@@ -166,15 +146,6 @@ components:
                 type: integer
               output_tokens:
                 type: integer
-    AnalyticsSummary:
-      type: object
-      properties:
-        total_requests:
-          type: integer
-        total_tokens:
-          type: integer
-        total_cost:
-          type: number
     Error:
       type: object
       properties:
@@ -204,6 +175,35 @@ components:
                 type: integer
               cost:
                 type: number
+    UsageTotal:
+      type: object
+      properties:
+        total_cost:
+          type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+    AnalyticsRequest:
+      type: object
+      properties:
+        interval:
+          type: string
+          description: Preset reporting window.
+          enum:
+          - last_day
+          - last_week
+          - last_month
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        group_by:
+          type: array
+          items:
+            type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key.

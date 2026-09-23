@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LangDB AI Gateway Analytics Embeddings API
-  description: OpenAI-compatible REST API for the LangDB AI Gateway. A single, project-scoped endpoint routes chat completions, embeddings, and image generation across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, while adding routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway. Requests are authenticated with a Bearer API key and scoped to a project either by embedding the project id in the path (`/{project_id}/v1/...`) or by sending an `X-Project-Id` header. Tracing and session headers (`X-Thread-Id`, `X-Run-Id`, `X-Label`) attach observability metadata to each call.
+  title: LangDB AI Gateway Embeddings API
+  description: OpenAI-compatible REST API for the LangDB AI Gateway.
   termsOfService: https://langdb.ai/terms
   contact:
     name: LangDB Support
@@ -50,19 +50,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit or cost limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     EmbeddingRequest:
       type: object
@@ -84,15 +71,6 @@ components:
           enum:
           - float
           - base64
-    Usage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-        completion_tokens:
-          type: integer
-        total_tokens:
-          type: integer
     Error:
       type: object
       properties:
@@ -105,6 +83,15 @@ components:
               type: string
             code:
               type: string
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+        completion_tokens:
+          type: integer
+        total_tokens:
+          type: integer
     EmbeddingResponse:
       type: object
       properties:
@@ -129,6 +116,19 @@ components:
           type: string
         usage:
           $ref: '#/components/schemas/Usage'
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or cost limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectIdHeader:
       name: X-Project-Id
