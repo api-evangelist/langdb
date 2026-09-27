@@ -120,16 +120,60 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    AnalyticsSummary:
+    AnalyticsRequest:
       type: object
       properties:
-        total_requests:
-          type: integer
-        total_tokens:
-          type: integer
+        interval:
+          type: string
+          description: Preset reporting window.
+          enum:
+          - last_day
+          - last_week
+          - last_month
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        group_by:
+          type: array
+          items:
+            type: string
+    UsageTotal:
+      type: object
+      properties:
         total_cost:
           type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+    AnalyticsResponse:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              requests:
+                type: integer
+              total_tokens:
+                type: integer
+              cost:
+                type: number
     UsageByModel:
       type: object
       properties:
@@ -158,59 +202,15 @@ components:
               type: string
             code:
               type: string
-    AnalyticsResponse:
+    AnalyticsSummary:
       type: object
       properties:
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                type: string
-                format: date-time
-              requests:
-                type: integer
-              total_tokens:
-                type: integer
-              cost:
-                type: number
-    UsageTotal:
-      type: object
-      properties:
+        total_requests:
+          type: integer
+        total_tokens:
+          type: integer
         total_cost:
           type: number
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
-    AnalyticsRequest:
-      type: object
-      properties:
-        interval:
-          type: string
-          description: Preset reporting window.
-          enum:
-          - last_day
-          - last_week
-          - last_month
-        start_time:
-          type: string
-          format: date-time
-        end_time:
-          type: string
-          format: date-time
-        group_by:
-          type: array
-          items:
-            type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     ProjectIdHeader:
       name: X-Project-Id

@@ -40,6 +40,7 @@ tags:
 - Routing
 - Governance
 - MCP
+- Real-Time
 tags_raw:
 - AI
 - LLM
@@ -47,6 +48,7 @@ tags_raw:
 - Routing
 - Governance
 - MCP
+- Real-Time
 created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.23'
