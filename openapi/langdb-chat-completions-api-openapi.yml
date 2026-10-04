@@ -20,14 +20,14 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Chat
+- name: Chat Completions
   description: OpenAI-compatible chat completions and model routing.
 paths:
   /chat/completions:
     post:
       operationId: createChatCompletion
       tags:
-      - Chat
+      - Chat Completions
       summary: Create a chat completion
       description: OpenAI-compatible chat completion across any model routable by the gateway (e.g. `openai/gpt-4o`, `anthropic/claude-sonnet-4`, `gemini/gemini-2.5-pro`). Supports streaming via Server-Sent Events when `stream` is true, tool/function calling, structured outputs, and attaching MCP servers through the `mcp_servers` array. Tracing metadata can be attached via the X-Thread-Id, X-Run-Id, and X-Label headers.
       parameters:
@@ -57,99 +57,7 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit or cost limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    LabelHeader:
-      name: X-Label
-      in: header
-      required: false
-      description: Attaches a custom label/tag to the model call for categorization and tracing.
-      schema:
-        type: string
-    ProjectIdHeader:
-      name: X-Project-Id
-      in: header
-      required: false
-      description: LangDB project id. Optional when the project id is embedded in the request path.
-      schema:
-        type: string
-    RunIdHeader:
-      name: X-Run-Id
-      in: header
-      required: false
-      description: Tracks a single workflow execution (model call or tool invocation) for observability.
-      schema:
-        type: string
-    ThreadIdHeader:
-      name: X-Thread-Id
-      in: header
-      required: false
-      description: Groups related requests under the same conversation thread for tracing and session continuity.
-      schema:
-        type: string
   schemas:
-    ChatCompletionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-          example: chat.completion
-        created:
-          type: integer
-        model:
-          type: string
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              index:
-                type: integer
-              message:
-                $ref: '#/components/schemas/ChatMessage'
-              finish_reason:
-                type: string
-        usage:
-          $ref: '#/components/schemas/Usage'
-    McpServer:
-      type: object
-      properties:
-        slug:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - sse
-          - ws
-          description: Transport type for the MCP server.
-        server_url:
-          type: string
-          format: uri
-    Usage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-        completion_tokens:
-          type: integer
-        total_tokens:
-          type: integer
     ChatMessage:
       type: object
       required:
@@ -173,6 +81,22 @@ components:
           type: string
         tool_call_id:
           type: string
+    McpServer:
+      type: object
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - sse
+          - ws
+          description: Transport type for the MCP server.
+        server_url:
+          type: string
+          format: uri
     Error:
       type: object
       properties:
@@ -241,6 +165,82 @@ components:
         extra:
           type: object
           description: Additional gateway-specific routing or guardrail options.
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: chat.completion
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                $ref: '#/components/schemas/ChatMessage'
+              finish_reason:
+                type: string
+        usage:
+          $ref: '#/components/schemas/Usage'
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+        completion_tokens:
+          type: integer
+        total_tokens:
+          type: integer
+  parameters:
+    RunIdHeader:
+      name: X-Run-Id
+      in: header
+      required: false
+      description: Tracks a single workflow execution (model call or tool invocation) for observability.
+      schema:
+        type: string
+    LabelHeader:
+      name: X-Label
+      in: header
+      required: false
+      description: Attaches a custom label/tag to the model call for categorization and tracing.
+      schema:
+        type: string
+    ThreadIdHeader:
+      name: X-Thread-Id
+      in: header
+      required: false
+      description: Groups related requests under the same conversation thread for tracing and session continuity.
+      schema:
+        type: string
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or cost limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

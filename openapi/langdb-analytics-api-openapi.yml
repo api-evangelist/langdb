@@ -130,15 +130,6 @@ components:
           type: integer
         output_tokens:
           type: integer
-    AnalyticsSummary:
-      type: object
-      properties:
-        total_requests:
-          type: integer
-        total_tokens:
-          type: integer
-        total_cost:
-          type: number
     AnalyticsResponse:
       type: object
       properties:
@@ -156,6 +147,15 @@ components:
                 type: integer
               cost:
                 type: number
+    AnalyticsSummary:
+      type: object
+      properties:
+        total_requests:
+          type: integer
+        total_tokens:
+          type: integer
+        total_cost:
+          type: number
     UsageByModel:
       type: object
       properties:

@@ -108,15 +108,6 @@ components:
           type: string
         usage:
           $ref: '#/components/schemas/Usage'
-    Usage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-        completion_tokens:
-          type: integer
-        total_tokens:
-          type: integer
     Error:
       type: object
       properties:
@@ -129,6 +120,15 @@ components:
               type: string
             code:
               type: string
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+        completion_tokens:
+          type: integer
+        total_tokens:
+          type: integer
   parameters:
     ProjectIdHeader:
       name: X-Project-Id

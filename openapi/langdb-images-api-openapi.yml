@@ -63,37 +63,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectIdHeader:
-      name: X-Project-Id
-      in: header
-      required: false
-      description: LangDB project id. Optional when the project id is embedded in the request path.
-      schema:
-        type: string
   schemas:
-    ImageGenerationRequest:
-      type: object
-      required:
-      - model
-      - prompt
-      properties:
-        model:
-          type: string
-          example: openai/gpt-image-1
-        prompt:
-          type: string
-        n:
-          type: integer
-          default: 1
-        size:
-          type: string
-          example: 1024x1024
-        response_format:
-          type: string
-          enum:
-          - url
-          - b64_json
     ImageGenerationResponse:
       type: object
       properties:
@@ -121,6 +91,36 @@ components:
               type: string
             code:
               type: string
+    ImageGenerationRequest:
+      type: object
+      required:
+      - model
+      - prompt
+      properties:
+        model:
+          type: string
+          example: openai/gpt-image-1
+        prompt:
+          type: string
+        n:
+          type: integer
+          default: 1
+        size:
+          type: string
+          example: 1024x1024
+        response_format:
+          type: string
+          enum:
+          - url
+          - b64_json
+  parameters:
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -72,42 +72,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectIdHeader:
-      name: X-Project-Id
-      in: header
-      required: false
-      description: LangDB project id. Optional when the project id is embedded in the request path.
-      schema:
-        type: string
   schemas:
-    ThreadCost:
-      type: object
-      properties:
-        thread_id:
-          type: string
-        total_cost:
-          type: number
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
-    ThreadMessageList:
-      type: object
-      properties:
-        thread_id:
-          type: string
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatMessage'
     ChatMessage:
       type: object
       required:
@@ -131,6 +96,26 @@ components:
           type: string
         tool_call_id:
           type: string
+    ThreadCost:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        total_cost:
+          type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+    ThreadMessageList:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
     Error:
       type: object
       properties:
@@ -143,6 +128,21 @@ components:
               type: string
             code:
               type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

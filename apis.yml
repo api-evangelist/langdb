@@ -82,32 +82,6 @@ apis:
     url: https://docs.langdb.ai/features/mcp-support
   - type: Documentation
     url: https://docs.langdb.ai/concepts/virtual-mcp-servers/
-- aid: langdb:langdb-chat-api
-  name: LangDB Chat API
-  description: OpenAI-compatible chat completions and model routing.
-  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
-  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/langdb-chat-api-openapi.yml
-  - type: Documentation
-    url: https://docs.langdb.ai/getting-started/working-with-api/
-  - type: APIReference
-    url: https://docs.langdb.ai/api-reference/ai-gateway-api/
-  - type: Postman
-    url: collections/langdb.postman_collection.json
-  - type: AsyncAPI
-    url: asyncapi/langdb-asyncapi.yml
-  - type: Documentation
-    url: https://docs.langdb.ai/concepts/thread
-  - type: Documentation
-    url: https://docs.langdb.ai/features/usage
-  - type: Documentation
-    url: https://docs.langdb.ai/features/mcp-support
-  - type: Documentation
-    url: https://docs.langdb.ai/concepts/virtual-mcp-servers/
 - aid: langdb:langdb-embeddings-api
   name: LangDB Embeddings API
   description: Vector embeddings for input text.
@@ -198,6 +172,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/langdb-threads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langdb.ai/getting-started/working-with-api/
+  - type: APIReference
+    url: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  - type: Postman
+    url: collections/langdb.postman_collection.json
+  - type: AsyncAPI
+    url: asyncapi/langdb-asyncapi.yml
+  - type: Documentation
+    url: https://docs.langdb.ai/concepts/thread
+  - type: Documentation
+    url: https://docs.langdb.ai/features/usage
+  - type: Documentation
+    url: https://docs.langdb.ai/features/mcp-support
+  - type: Documentation
+    url: https://docs.langdb.ai/concepts/virtual-mcp-servers/
+- aid: langdb:langdb-chat-completions-api
+  name: LangDB Chat Completions API
+  description: OpenAI-compatible chat completions and model routing.
+  humanURL: https://docs.langdb.ai/api-reference/ai-gateway-api/
+  baseURL: https://api.us-east-1.langdb.ai/{project_id}/v1
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/langdb-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://docs.langdb.ai/getting-started/working-with-api/
   - type: APIReference
