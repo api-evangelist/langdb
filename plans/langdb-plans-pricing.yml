@@ -11,9 +11,11 @@ provenance:
 audience: business-product
 pricing_basis: tiered-subscription
 delivery:
-  delivery: managed
+  delivery: managed+licensed
   method: page
   read: '2026-10-07'
+  evidence: Private VPC deployment
+  managed_tier: Professional
 published: true
 note: Tiered plans for AI gateway platform; also mentions unified model credits balance without prices.
 plan_count: 4
