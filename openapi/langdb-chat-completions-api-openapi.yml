@@ -57,30 +57,36 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  parameters:
+    ThreadIdHeader:
+      name: X-Thread-Id
+      in: header
+      required: false
+      description: Groups related requests under the same conversation thread for tracing and session continuity.
+      schema:
+        type: string
+    RunIdHeader:
+      name: X-Run-Id
+      in: header
+      required: false
+      description: Tracks a single workflow execution (model call or tool invocation) for observability.
+      schema:
+        type: string
+    ProjectIdHeader:
+      name: X-Project-Id
+      in: header
+      required: false
+      description: LangDB project id. Optional when the project id is embedded in the request path.
+      schema:
+        type: string
+    LabelHeader:
+      name: X-Label
+      in: header
+      required: false
+      description: Attaches a custom label/tag to the model call for categorization and tracing.
+      schema:
+        type: string
   schemas:
-    ChatMessage:
-      type: object
-      required:
-      - role
-      - content
-      properties:
-        role:
-          type: string
-          enum:
-          - system
-          - user
-          - assistant
-          - tool
-        content:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: object
-        name:
-          type: string
-        tool_call_id:
-          type: string
     McpServer:
       type: object
       properties:
@@ -97,18 +103,6 @@ components:
         server_url:
           type: string
           format: uri
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            type:
-              type: string
-            code:
-              type: string
     ChatCompletionRequest:
       type: object
       required:
@@ -190,6 +184,41 @@ components:
                 type: string
         usage:
           $ref: '#/components/schemas/Usage'
+    ChatMessage:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          enum:
+          - system
+          - user
+          - assistant
+          - tool
+        content:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: object
+        name:
+          type: string
+        tool_call_id:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: string
     Usage:
       type: object
       properties:
@@ -199,35 +228,6 @@ components:
           type: integer
         total_tokens:
           type: integer
-  parameters:
-    RunIdHeader:
-      name: X-Run-Id
-      in: header
-      required: false
-      description: Tracks a single workflow execution (model call or tool invocation) for observability.
-      schema:
-        type: string
-    LabelHeader:
-      name: X-Label
-      in: header
-      required: false
-      description: Attaches a custom label/tag to the model call for categorization and tracing.
-      schema:
-        type: string
-    ThreadIdHeader:
-      name: X-Thread-Id
-      in: header
-      required: false
-      description: Groups related requests under the same conversation thread for tracing and session continuity.
-      schema:
-        type: string
-    ProjectIdHeader:
-      name: X-Project-Id
-      in: header
-      required: false
-      description: LangDB project id. Optional when the project id is embedded in the request path.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key.

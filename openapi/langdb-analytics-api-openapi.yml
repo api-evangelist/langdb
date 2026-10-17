@@ -121,15 +121,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    UsageTotal:
+    UsageByModel:
       type: object
       properties:
-        total_cost:
-          type: number
-        input_tokens:
-          type: integer
-        output_tokens:
-          type: integer
+        models:
+          type: array
+          items:
+            type: object
+            properties:
+              model:
+                type: string
+              total_cost:
+                type: number
+              input_tokens:
+                type: integer
+              output_tokens:
+                type: integer
     AnalyticsResponse:
       type: object
       properties:
@@ -147,31 +154,6 @@ components:
                 type: integer
               cost:
                 type: number
-    AnalyticsSummary:
-      type: object
-      properties:
-        total_requests:
-          type: integer
-        total_tokens:
-          type: integer
-        total_cost:
-          type: number
-    UsageByModel:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: object
-            properties:
-              model:
-                type: string
-              total_cost:
-                type: number
-              input_tokens:
-                type: integer
-              output_tokens:
-                type: integer
     Error:
       type: object
       properties:
@@ -204,13 +186,24 @@ components:
           type: array
           items:
             type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    UsageTotal:
+      type: object
+      properties:
+        total_cost:
+          type: number
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+    AnalyticsSummary:
+      type: object
+      properties:
+        total_requests:
+          type: integer
+        total_tokens:
+          type: integer
+        total_cost:
+          type: number
   parameters:
     ProjectIdHeader:
       name: X-Project-Id
@@ -219,6 +212,13 @@ components:
       description: LangDB project id. Optional when the project id is embedded in the request path.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
