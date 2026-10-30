@@ -1,4 +1,4 @@
-# LangDB (langdb)
+# LangDB
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,178 +66,144 @@
 
 LangDB is an AI gateway and governance platform that routes requests across 250+ models from providers such as OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek through a single project-scoped, OpenAI-compatible REST API. It layers routing, guardrails, tracing, cost control, and an MCP (Model Context Protocol) gateway on top of that unified interface.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/langdb/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/langdb/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · LLM · AI Gateway · Routing · Governance · MCP · Real-Time
 
-## Tags
+## LangDB on APIs.io
 
-- AI
-- LLM
-- AI Gateway
-- Routing
-- Governance
-- MCP
+Everything profiled for LangDB is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/langdb/](https://apis.io/providers/langdb/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [LangDB Analytics API](https://apis.io/apis/langdb/langdb-analytics-api/) — Usage analytics and cost summaries.
+- [LangDB Embeddings API](https://apis.io/apis/langdb/langdb-embeddings-api/) — Vector embeddings for input text.
+- [LangDB Images API](https://apis.io/apis/langdb/langdb-images-api/) — Image generation.
+- [LangDB Models API](https://apis.io/apis/langdb/langdb-models-api/) — Catalog of models available through the gateway.
+- [LangDB Threads API](https://apis.io/apis/langdb/langdb-threads-api/) — Conversation threads, their messages, and per-thread cost.
+- [LangDB Chat Completions API](https://apis.io/apis/langdb/langdb-chat-completions-api/) — OpenAI-compatible chat completions and model routing.
 
-## APIs
+### Published properties
 
-### LangDB Chat Completions / Routing API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-OpenAI-compatible chat completions routed across 250+ models from OpenAI, Anthropic, Google, Meta, Mistral, and DeepSeek, with SSE streaming, tool calling, structured outputs, fallback/load-balancing routing, and attachable MCP servers.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.langdb.ai/api-reference/ai-gateway-api/](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- **Base URL:** `https://api.us-east-1.langdb.ai/{project_id}/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [LangDB Chat Completions Streaming (HTTP + SSE)](https://apis.io/asyncapis/langdb/langdb-asyncapi/)
 
-- Chat
-- Completions
-- Routing
-- LLM
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://docs.langdb.ai/getting-started/working-with-api/)
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/langdb-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [/chat/completions](https://apis.io/channels/langdb/chat-completions/)
 
-### LangDB Embeddings API
+#### Agentic access (1)
 
-OpenAI-compatible embeddings endpoint that creates vector representations of input text or token arrays via any embedding model routed through the gateway.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.langdb.ai/api-reference/ai-gateway-api/](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- **Base URL:** `https://api.us-east-1.langdb.ai/{project_id}/v1`
+- [Langdb Agentic Access](https://apis.io/agentic-access/langdb/langdb-agentic-access/)
 
-#### Tags
+#### Collections (7)
 
-- Embeddings
-- Vectors
+Postman and Open Collection request collections.
 
-#### Properties
+- [LangDB AI Gateway API](https://apis.io/collections/langdb/open-langdb/)
+- [LangDB AI Gateway Analytics API](https://apis.io/collections/langdb/open-langdb-analytics-api/)
+- [LangDB AI Gateway Analytics Chat API](https://apis.io/collections/langdb/open-langdb-chat-api/)
+- [LangDB AI Gateway Analytics Embeddings API](https://apis.io/collections/langdb/open-langdb-embeddings-api/)
+- [LangDB AI Gateway Analytics Images API](https://apis.io/collections/langdb/open-langdb-images-api/)
+- [LangDB AI Gateway Analytics Models API](https://apis.io/collections/langdb/open-langdb-models-api/)
+- [LangDB AI Gateway Analytics Threads API](https://apis.io/collections/langdb/open-langdb-threads-api/)
 
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (1)
 
-### LangDB Images API
+Spectral rulesets for the provider's contracts.
 
-OpenAI-compatible image generation endpoint producing images from text prompts using image-capable models routed through the gateway.
+- [LangDB — asyncapi rules](https://apis.io/rules/langdb/langdb-asyncapi-spectral-rules/)
 
-- **Human URL:** [https://docs.langdb.ai/api-reference/ai-gateway-api/](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- **Base URL:** `https://api.us-east-1.langdb.ai/{project_id}/v1`
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Images
-- Generation
-- Multimodal
+- [Langdb Authentication](https://apis.io/security/langdb/langdb-authentication/)
+- [Langdb Domain Security](https://apis.io/security/langdb/langdb-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### LangDB Models API
+- [Langdb Plans Pricing](https://apis.io/plans/langdb/langdb-plans-pricing/)
 
-Lists the models available to a project through the gateway in an OpenAI-compatible shape, spanning 250+ models across the supported providers.
+#### Rate limits (1)
 
-- **Human URL:** [https://docs.langdb.ai/api-reference/ai-gateway-api/](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- **Base URL:** `https://api.us-east-1.langdb.ai/{project_id}/v1`
+Published request limits.
 
-#### Tags
+- [Langdb Rate Limits](https://apis.io/rate-limits/langdb/langdb-rate-limits/)
 
-- Models
-- Catalog
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Langdb Finops](https://apis.io/finops/langdb/langdb-finops/)
 
-### LangDB Threads / Messages API
+## Where to find this API
 
-Retrieves the ordered messages and aggregated per-thread cost for a conversation thread, grouped by the X-Thread-Id supplied on chat requests.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://docs.langdb.ai/concepts/thread](https://docs.langdb.ai/concepts/thread)
-- **Base URL:** `https://api.us-east-1.langdb.ai`
-
-#### Tags
-
-- Threads
-- Messages
-- Observability
-
-#### Properties
-
-- [Documentation](https://docs.langdb.ai/concepts/thread)
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### LangDB Analytics / Usage API
-
-Returns time-series analytics, aggregated summaries, total usage, and per-model usage (cost and token counts) for a project over preset reporting windows.
-
-- **Human URL:** [https://docs.langdb.ai/features/usage](https://docs.langdb.ai/features/usage)
-- **Base URL:** `https://api.us-east-1.langdb.ai`
-
-#### Tags
-
-- Analytics
-- Usage
-- Cost
-- FinOps
-
-#### Properties
-
-- [Documentation](https://docs.langdb.ai/features/usage)
-- [API Reference](https://docs.langdb.ai/api-reference/ai-gateway-api/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langdb.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langdb.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### LangDB MCP Gateway API
-
-Attaches virtual and custom MCP servers (over SSE or WebSocket transport) to chat requests via the mcp_servers array, exposing their tools to the routed model and bundling multiple tools behind a single MCP URL.
-
-- **Human URL:** [https://docs.langdb.ai/features/mcp-support](https://docs.langdb.ai/features/mcp-support)
-- **Base URL:** `https://api.us-east-1.langdb.ai/{project_id}/v1`
-
-#### Tags
-
-- MCP
-- Tools
-- Gateway
-
-#### Properties
-
-- [Documentation](https://docs.langdb.ai/features/mcp-support)
-- [Documentation](https://docs.langdb.ai/concepts/virtual-mcp-servers/)
-- [OpenAPI](openapi/langdb-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/langdb)
-- [LinkedIn](https://www.linkedin.com/company/langdb)
 - [Website](https://langdb.ai)
 - [Documentation](https://docs.langdb.ai)
-- [Plans](plans/langdb-plans-pricing.yml)
-- [Rate Limits](rate-limits/langdb-rate-limits.yml)
-- [Fin Ops](finops/langdb-finops.yml)
+- [Pricing](https://langdb.ai/pricing/)
+- [GitHub](https://github.com/langdb)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.2 |
+| Contract governance | 11.4 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 29.8 |
+| Access clarity | 42.1 |
+
+**Agent readiness 19.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/langdb/](https://apis.io/providers/langdb/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for LangDB: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/langdb/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
